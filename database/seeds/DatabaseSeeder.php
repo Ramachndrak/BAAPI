@@ -13,5 +13,12 @@ class DatabaseSeeder extends Seeder
     {
         // $this->call(UsersTableSeeder::class);
          $this->call(ProfileSeeder::class);
+         $this->call(ProfileCreatedBy::class);
+         $this->call(BloodGroup::class);
+         $this->call(Religion::class);
+         $this->call(Community::class);
+         $this->call(SubCommunity::class);
+         $this->call(MotherTongue::class);
+         $this->call(HighQualification::class);
     }
 }
