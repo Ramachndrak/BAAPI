@@ -15,6 +15,7 @@ use App\SubCommunity;
 use App\MotherTongue;
 use App\HighQualification;
 use App\ReligionBackground;
+use App\ProfileScreen;
 
 class UserController extends Controller
 {
@@ -56,6 +57,24 @@ class UserController extends Controller
         'mother_tongue_id.required'  => 'Profile is Required',
         'city_of_birth.required'     => 'Gender is Required',
         'rashi.required'             => 'Gender is Required'
+    ];
+
+    protected $profile_rules = [
+        'profiles_created_by_id'      => 'required',
+        'date_of_birth'               => 'required',
+        'martial_status'              => 'required',
+        'height'                      => 'required',
+        'weight'                      => 'required',
+        'blood_group_id'              => 'required'
+    ];
+
+    protected $profile_messages = [
+        'profiles_created_by_id.required'       => 'Profile Created By Required',
+        'date_of_birth.required'                => 'Date of birth Required',
+        'martial_status.required'               => 'Martial Status Required',
+        'height.required'                       => 'Height is Required',
+        'weight.required'                       => 'Weight is Required',
+        'blood_group_id.required'               => 'Blood Group is Required'
     ];
 
     public function ProfileFor()
@@ -105,8 +124,7 @@ class UserController extends Controller
         	$user_id     =  auth()->user()->id;
         	$flag        =  auth()->user()->flag;
         	$token       =  auth()->user()->createToken('BAToken')->accessToken;
-        	$user_details = User::select('id','name','email','mobile_num','profile_for','flag')
-        					->where('status',1)->where('id',$user_id)->first();
+        	$user_details = User::select('id','name','email','mobile_num','profile_for','flag')->where('status',1)->where('id',$user_id)->first();
 
         	return Response::json(['success'=>'true','message'=>'User logged in successfully','token' => $token,'user_id'=>$user_details,'flag'=>$flag], 200);
         }
@@ -188,12 +206,40 @@ class UserController extends Controller
             $ReligionBackground->rashi            = $request->rashi;
             $ReligionBackground->save();
             $update_flag = User::where('id',$user_id)
+                           ->update(['flag' => 3]);
+            $religion_info = User::select('id','flag')
+                             ->where('id',$user_id)
+                             ->first();
+            return response()->json(['success'=>'true','message'=>'Religion Background Saved successfully','religion_info' => $religion_info], 200);
+        }
+    }
+
+    public function ProfileScreen(Request $request)
+    {
+         $validator = Validator::make(Input::all(), $this->profile_rules,$this->profile_messages);
+        if ($validator->fails()) {
+            return Response::json(array('errors' => $validator->getMessageBag()->toArray()),449);
+        } else {
+            $profileScreen = new ProfileScreen();
+            $profileScreen->user_id          = $request->user_id;
+            $profileScreen->profiles_created_by_id  = $request->profiles_created_by_id;
+            $profileScreen->date_of_birth           = $request->date_of_birth;
+            $profileScreen->martial_status          = $request->martial_status;
+            $height                                 = $request->height;
+            $height_split = explode(' - ', $height);
+            $profileScreen->height = $height_split[0];
+            $profileScreen->inches = $height_split[1];
+            $profileScreen->weight = $request->weight;
+            $profileScreen->blood_group_id = $request->blood_group_id;
+            $profileScreen->save();
+            $update_flag = User::where('id',$user_id)
                            ->update(['flag' => 2]);
 
-            $religion_info = ReligionBackground::select('religion_id','community_id','sub_community_id','gotram','mother_tongue_id','city_of_birth','rashi')
-                ->where('user_id',$request->user_id)->first();       
+            $profile_info = User::select('id','flag')
+                             ->where('id',$user_id)
+                             ->first();
 
-            return response()->json(['success'=>'true','message'=>'Religion Background Saved successfully','religion_info' => $religion_info], 200);              
+            return response()->json(['success'=>'true','message'=>'Religion Background Saved successfully','religion_info' => $profile_info], 200);
         }
     }
 
