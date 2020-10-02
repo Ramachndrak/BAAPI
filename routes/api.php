@@ -28,3 +28,4 @@ Route::post('sub_community','Api\UserController@SubCommunity');
 Route::get('mother_tongue','Api\UserController@MotherTongue');
 Route::post('religion_background','Api\UserController@ReligionBackground');
 Route::post('profile_screen','Api\UserController@ProfileScreen');
+Route::post('education_details','Api\UserController@EducationDetails');

@@ -16,6 +16,7 @@ use App\MotherTongue;
 use App\HighQualification;
 use App\ReligionBackground;
 use App\ProfileScreen;
+use App\EducationDetails;
 
 class UserController extends Controller
 {
@@ -75,6 +76,23 @@ class UserController extends Controller
         'height.required'                       => 'Height is Required',
         'weight.required'                       => 'Weight is Required',
         'blood_group_id.required'               => 'Blood Group is Required'
+    ];
+
+    protected $education_rules = [
+        'highest_qualification' => 'required',
+        'college_attend'        => 'required',
+        'working_as'            => 'required',
+        'company'               => 'required',
+        'annual_income'         => 'required'
+    ];
+
+    protected $education_messages = [
+
+        'highest_qualification.required'   => 'Please Enter Education qualification',
+        'college_attend.required'          => 'Please Enter Your College',
+        'working_as.required'              => 'Please Enter Working As',
+        'company.required'                 => 'Please Enter Your Company',
+        'annual_income.required'           => 'Please Enter Your Income'
     ];
 
     public function ProfileFor()
@@ -205,10 +223,10 @@ class UserController extends Controller
             $ReligionBackground->city_of_birth    = $request->city_of_birth;
             $ReligionBackground->rashi            = $request->rashi;
             $ReligionBackground->save();
-            $update_flag = User::where('id',$user_id)
+            $update_flag = User::where('id',$request->user_id)
                            ->update(['flag' => 3]);
             $religion_info = User::select('id','flag')
-                             ->where('id',$user_id)
+                             ->where('id',$request->user_id)
                              ->first();
             return response()->json(['success'=>'true','message'=>'Religion Background Saved successfully','religion_info' => $religion_info], 200);
         }
@@ -231,15 +249,44 @@ class UserController extends Controller
             $profileScreen->inches = $height_split[1];
             $profileScreen->weight = $request->weight;
             $profileScreen->blood_group_id = $request->blood_group_id;
+            $profileScreen->fair    = $request->fair;
             $profileScreen->save();
-            $update_flag = User::where('id',$user_id)
+            $update_flag = User::where('id',$request->user_id)
                            ->update(['flag' => 2]);
 
             $profile_info = User::select('id','flag')
-                             ->where('id',$user_id)
+                             ->where('id',$request->user_id)
                              ->first();
 
-            return response()->json(['success'=>'true','message'=>'Religion Background Saved successfully','religion_info' => $profile_info], 200);
+            return response()->json(['success'=>'true','message'=>'Profile Screen Saved successfully','profile_info' => $profile_info], 200);
+        }
+    }
+
+    public function EducationDetails(Request $request)
+    {
+        $validator = Validator::make(Input::all(), $this->education_rules,$this->education_messages);
+        if ($validator->fails()) {
+            return Response::json(array('errors' => $validator->getMessageBag()->toArray()),449);
+        } else {
+            $EducationDetails = new EducationDetails();
+            $EducationDetails->user_id = $request->user_id;
+            $EducationDetails->highest_qualification = $request->highest_qualification;
+            $EducationDetails->college_attend = $request->college_attend;
+            $EducationDetails->working_as = $request->working_as;
+            $EducationDetails->company = $request->company;
+            $EducationDetails->annual_income = $request->annual_income;
+            $EducationDetails->save();
+
+            $update_flag = User::where('id',$request->user_id)
+                           ->update(['flag' => 2]);
+
+            $education_info = User::select('id','flag')
+                             ->where('id',$request->user_id)
+                             ->first();
+
+            return response()->json(['success'=>'true','message'=>'Education Details saved successfully','education_info' => $education_info], 200);                 
+
+
         }
     }
 
