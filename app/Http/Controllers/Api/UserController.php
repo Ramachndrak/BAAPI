@@ -206,32 +206,6 @@ class UserController extends Controller
         return $HighQualification;
     }
 
-    public function ReligionBackground(Request $request)
-    {
-        $validator = Validator::make(Input::all(), $this->religion_rules,$this->religion_messages);
-        if ($validator->fails()) {
-            return Response::json(array('errors' => $validator->getMessageBag()->toArray()),449);
-        } else {
-                    
-            $ReligionBackground = new ReligionBackground();
-            $ReligionBackground->user_id          = $request->user_id;            
-            $ReligionBackground->religion_id      = $request->religion_id;
-            $ReligionBackground->community_id     = $request->community_id;
-            $ReligionBackground->sub_community_id = $request->sub_community_id;
-            $ReligionBackground->gotram           = $request->gotram;
-            $ReligionBackground->mother_tongue_id = $request->mother_tongue_id;
-            $ReligionBackground->city_of_birth    = $request->city_of_birth;
-            $ReligionBackground->rashi            = $request->rashi;
-            $ReligionBackground->save();
-            $update_flag = User::where('id',$request->user_id)
-                           ->update(['flag' => 3]);
-            $religion_info = User::select('id','flag')
-                             ->where('id',$request->user_id)
-                             ->first();
-            return response()->json(['success'=>'true','message'=>'Religion Background Saved successfully','religion_info' => $religion_info], 200);
-        }
-    }
-
     public function ProfileScreen(Request $request)
     {
          $validator = Validator::make(Input::all(), $this->profile_rules,$this->profile_messages);
@@ -262,6 +236,32 @@ class UserController extends Controller
         }
     }
 
+    public function ReligionBackground(Request $request)
+    {
+        $validator = Validator::make(Input::all(), $this->religion_rules,$this->religion_messages);
+        if ($validator->fails()) {
+            return Response::json(array('errors' => $validator->getMessageBag()->toArray()),449);
+        } else {
+                    
+            $ReligionBackground = new ReligionBackground();
+            $ReligionBackground->user_id          = $request->user_id;            
+            $ReligionBackground->religion_id      = $request->religion_id;
+            $ReligionBackground->community_id     = $request->community_id;
+            $ReligionBackground->sub_community_id = $request->sub_community_id;
+            $ReligionBackground->gotram           = $request->gotram;
+            $ReligionBackground->mother_tongue_id = $request->mother_tongue_id;
+            $ReligionBackground->city_of_birth    = $request->city_of_birth;
+            $ReligionBackground->rashi            = $request->rashi;
+            $ReligionBackground->save();
+            $update_flag = User::where('id',$request->user_id)
+                           ->update(['flag' => 3]);
+            $religion_info = User::select('id','flag')
+                             ->where('id',$request->user_id)
+                             ->first();
+            return response()->json(['success'=>'true','message'=>'Religion Background Saved successfully','religion_info' => $religion_info], 200);
+        }
+    }
+
     public function EducationDetails(Request $request)
     {
         $validator = Validator::make(Input::all(), $this->education_rules,$this->education_messages);
@@ -278,7 +278,7 @@ class UserController extends Controller
             $EducationDetails->save();
 
             $update_flag = User::where('id',$request->user_id)
-                           ->update(['flag' => 2]);
+                           ->update(['flag' => 4]);
 
             $education_info = User::select('id','flag')
                              ->where('id',$request->user_id)
@@ -289,6 +289,5 @@ class UserController extends Controller
 
         }
     }
-
 
 }
