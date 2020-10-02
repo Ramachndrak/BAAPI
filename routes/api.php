@@ -29,3 +29,4 @@ Route::get('mother_tongue','Api\UserController@MotherTongue');
 Route::post('religion_background','Api\UserController@ReligionBackground');
 Route::post('profile_screen','Api\UserController@ProfileScreen');
 Route::post('education_details','Api\UserController@EducationDetails');
+Route::post('family_details','Api\UserController@FamilyDetails');

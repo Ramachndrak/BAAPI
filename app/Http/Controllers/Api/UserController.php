@@ -45,6 +45,7 @@ class UserController extends Controller
         'community_id'     => 'required',
         'sub_community_id' => 'required',
         'gotram'           => 'required',
+        'maternal_gotram'  => 'required',
         'mother_tongue_id' => 'required',
         'city_of_birth'    => 'required',
         'rashi'            => 'required'
@@ -54,7 +55,8 @@ class UserController extends Controller
         'religion_id.required'       => 'Name is Required',
         'community_id.required'      => 'Email is Required',
         'sub_community_id.required'  => 'Mobile Number is Required',
-        'gotram.required'            => 'Passowrd is Required',
+        'gotram.required'            => 'Gotram is Required',
+        'maternal_gotram.required'   => 'Meternal gotram is Required',
         'mother_tongue_id.required'  => 'Profile is Required',
         'city_of_birth.required'     => 'Gender is Required',
         'rashi.required'             => 'Gender is Required'
@@ -249,6 +251,7 @@ class UserController extends Controller
             $ReligionBackground->community_id     = $request->community_id;
             $ReligionBackground->sub_community_id = $request->sub_community_id;
             $ReligionBackground->gotram           = $request->gotram;
+            $ReligionBackground->maternal_gotram  = $request->maternal_gotram;            
             $ReligionBackground->mother_tongue_id = $request->mother_tongue_id;
             $ReligionBackground->city_of_birth    = $request->city_of_birth;
             $ReligionBackground->rashi            = $request->rashi;
