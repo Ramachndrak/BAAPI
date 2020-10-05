@@ -150,7 +150,7 @@ class UserController extends Controller
         }
         else {
 
-            return Response::json(['error'=>'false','message'=>'Invalid Credentials'], 401);
+            return Response::json(['error'=>'false','message'=>'Invalid Credentials'], 449);
         }
     }
 
@@ -293,4 +293,25 @@ class UserController extends Controller
         }
     }
 
+    public function FamilyDetails(Request $request)
+    {
+
+    }
+
+    public function GetStatus(Request $request)
+    {
+        $user_id = $request->user_id;
+        if(!empty($user_id))
+        {
+            $GetStatus = User::select('flag')
+                         ->where('id',$user_id)
+                         ->first();
+
+            return response()->json(['success'=>'true','message'=>'Flag','status_flag' => $GetStatus], 200);              
+        }
+        else
+        {
+            return response()->json(['error'=>"false",'message'=>'Please Provide User Id'],400);
+        }
+    }
 }
