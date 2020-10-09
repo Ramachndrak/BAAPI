@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFamilyDetailsTable extends Migration
+class CreateFaceFairTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class CreateFamilyDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('family_details', function (Blueprint $table) {
+        Schema::create('face_fair', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('face_fair');
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ class CreateFamilyDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('family_details');
+        Schema::dropIfExists('face_fair');
     }
 }

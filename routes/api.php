@@ -19,15 +19,22 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('profile_for','Api\UserController@ProfileFor');
 Route::get('profile_created_by','Api\UserController@ProfileCreated');
-Route::post('register','Api\UserController@Register');
-Route::post('login','Api\UserController@Login');
 Route::get('blood_group','Api\UserController@BloodGroup');
 Route::get('religion','Api\UserController@Religion');
 Route::get('community','Api\UserController@Community');
-Route::post('sub_community','Api\UserController@SubCommunity');
 Route::get('mother_tongue','Api\UserController@MotherTongue');
-Route::post('religion_background','Api\UserController@ReligionBackground');
-Route::post('profile_screen','Api\UserController@ProfileScreen');
-Route::post('education_details','Api\UserController@EducationDetails');
-Route::post('family_details','Api\UserController@FamilyDetails');
-Route::post('get_status','Api\UserController@GetStatus');
+Route::get('face_fair','Api\UserController@FaceFair');
+Route::post('register','Api\UserController@Register');
+Route::post('login','Api\UserController@Login');
+
+Route::middleware('auth:api')->group(function () {
+	Route::post('sub_community','Api\UserController@SubCommunity');
+	Route::post('religion_background','Api\UserController@ReligionBackground');
+	Route::post('profile_screen','Api\UserController@ProfileScreen');
+	Route::post('education_details','Api\UserController@EducationDetails');
+	Route::post('family_details','Api\UserController@FamilyDetails');
+	Route::post('get_status','Api\UserController@GetStatus');
+	Route::post('profile_pic','Api\UserController@ProfilePic');
+});
+
+

@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
          $this->call(SubCommunity::class);
          $this->call(MotherTongue::class);
          $this->call(HighQualification::class);
+         $this->call(FaceFairSeeder::class);
     }
 }

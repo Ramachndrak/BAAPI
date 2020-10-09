@@ -17,6 +17,7 @@ use App\HighQualification;
 use App\ReligionBackground;
 use App\ProfileScreen;
 use App\EducationDetails;
+use App\FamilyDetails;
 
 class UserController extends Controller
 {
@@ -95,6 +96,26 @@ class UserController extends Controller
         'working_as.required'              => 'Please Enter Working As',
         'company.required'                 => 'Please Enter Your Company',
         'annual_income.required'           => 'Please Enter Your Income'
+    ];
+
+    protected $family_rules=[
+
+        'father_name' => 'required',
+        'father_profession' => 'required',
+        'mother_name'   => 'required',
+        'mother_profession' => 'required',
+        'no_of_siblings'    => 'required',
+        'address'           => 'required'
+    ];
+
+    protected $damily_messages = [
+        'father_name.required'  => 'Please Enter Father Name',
+        'father_profession.required' => 'Please Enter Fathter Profession',
+        'mother_name.required'      => 'Please Enter Mother Name',
+        'mother_profession.required' => 'Please Enter Mother Profession',
+        'no_of_siblings.required'    => 'Please Enter No of Siblings',
+        'address.required'           => 'Please Enter Address'
+
     ];
 
     public function ProfileFor()
@@ -295,7 +316,32 @@ class UserController extends Controller
 
     public function FamilyDetails(Request $request)
     {
+        $validator = Validator::make(Input::all(), $this->family_rules,$this->family_messages);
+        if ($validator->fails()) {
+            return Response::json(array('errors' => $validator->getMessageBag()->toArray()),449);
+        } else {
+            $FamilyDetails = new FamilyDetails();
+            $FamilyDetails->user_id = $request->user_id;
+            $FamilyDetails->father_name = $request->father_name;
+            $FamilyDetails->father_profession = $request->father_profession;
+            $FamilyDetails->mother_name = $request->mother_name;
+            $FamilyDetails->mother_profession = $request->mother_profession;
+            $FamilyDetails->no_of_brothers = $request->no_of_brothers;
+            $FamilyDetails->brother_married = $request->brother_married;
+            $FamilyDetails->brother_not_married = $request->brother_not_married;
+            $FamilyDetails->no_of_sisters = $request->no_of_sisters;
+            $FamilyDetails->sister_married = $request->sister_married;
+            $FamilyDetails->sister_not_married = $request->sister_not_married;
+            $FamilyDetails->save();
+            $update_flag = User::where('id',$request->user_id)
+                           ->update(['flag' => 4]);
 
+            $family_info = User::select('id','flag')
+                             ->where('id',$request->user_id)
+                             ->first();
+
+            return response()->json(['success'=>'true','message'=>'Family Details saved successfully','family_info' => $family_info], 200);
+        }
     }
 
     public function GetStatus(Request $request)
@@ -313,5 +359,11 @@ class UserController extends Controller
         {
             return response()->json(['error'=>"false",'message'=>'Please Provide User Id'],400);
         }
+    }
+
+
+    public function ProfilePic(Request $request)
+    {
+
     }
 }
