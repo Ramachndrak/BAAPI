@@ -339,6 +339,7 @@ class UserController extends Controller
             $FamilyDetails->no_of_sisters = $request->no_of_sisters;
             $FamilyDetails->sister_married = $request->sister_married;
             $FamilyDetails->sister_not_married = $request->sister_not_married;
+            $FamilyDetails->address = $request->address;
             $FamilyDetails->save();
             $update_flag = User::where('id',$request->user_id)
                            ->update(['flag' => 5]);
