@@ -109,7 +109,7 @@ class UserController extends Controller
         'address'           => 'required'
     ];
 
-    protected $damily_messages = [
+    protected $family_messages = [
         'father_name.required'  => 'Please Enter Father Name',
         'father_profession.required' => 'Please Enter Fathter Profession',
         'mother_name.required'      => 'Please Enter Mother Name',
@@ -242,27 +242,41 @@ class UserController extends Controller
         if ($validator->fails()) {
             return Response::json(array('errors' => $validator->getMessageBag()->toArray()),449);
         } else {
-            $profileScreen = new ProfileScreen();
-            $profileScreen->user_id          = $request->user_id;
-            $profileScreen->profiles_created_by_id  = $request->profiles_created_by_id;
-            $profileScreen->date_of_birth           = $request->date_of_birth;
-            $profileScreen->martial_status          = $request->martial_status;
-            $height                                 = $request->height;
-            $height_split = explode(' - ', $height);
-            $profileScreen->height = $height_split[0];
-            $profileScreen->inches = $height_split[1];
-            $profileScreen->weight = $request->weight;
-            $profileScreen->blood_group_id = $request->blood_group_id;
-            $profileScreen->fair    = $request->fair;
-            $profileScreen->save();
-            $update_flag = User::where('id',$request->user_id)
-                           ->update(['flag' => 2]);
 
-            $profile_info = User::select('id','flag')
-                             ->where('id',$request->user_id)
-                             ->first();
+            $user_id = $request->user_id;
 
-            return response()->json(['success'=>'true','message'=>'Profile Screen Saved successfully','profile_info' => $profile_info], 200);
+            $ProfileScreen_check = ProfileScreen::where('user_id',$user_id)->first();
+            if(count($ProfileScreen_check)>0)
+            {
+
+            }
+            else
+            {
+                $profileScreen = new ProfileScreen();
+                $profileScreen->user_id          = $request->user_id;
+                $profileScreen->profiles_created_by_id  = $request->profiles_created_by_id;
+                $profileScreen->date_of_birth           = $request->date_of_birth;
+                $profileScreen->martial_status          = $request->martial_status;
+                $height                                 = $request->height;
+                $height_split = explode(' - ', $height);
+                $profileScreen->height = $height_split[0];
+                $profileScreen->inches = $height_split[1];
+                $profileScreen->weight = $request->weight;
+                $profileScreen->blood_group_id = $request->blood_group_id;
+                $profileScreen->fair    = $request->fair;
+                $profileScreen->save();
+                $update_flag = User::where('id',$request->user_id)
+                               ->update(['flag' => 2]);
+
+                $profile_info = User::select('id','flag')
+                                 ->where('id',$request->user_id)
+                                 ->first();
+
+                return response()->json(['success'=>'true','message'=>'Profile Screen Saved successfully','profile_info' => $profile_info], 200);
+            }
+
+
+            
         }
     }
 
