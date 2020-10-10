@@ -27,7 +27,7 @@ Route::get('face_fair','Api\UserController@FaceFair');
 Route::post('register','Api\UserController@Register');
 Route::post('login','Api\UserController@Login');
 
-Route::middleware('auth:api')->group(function () {
+//Route::middleware('auth:api')->group(function () {
 	Route::post('sub_community','Api\UserController@SubCommunity');
 	Route::post('religion_background','Api\UserController@ReligionBackground');
 	Route::post('profile_screen','Api\UserController@ProfileScreen');
@@ -35,6 +35,6 @@ Route::middleware('auth:api')->group(function () {
 	Route::post('family_details','Api\UserController@FamilyDetails');
 	Route::post('get_status','Api\UserController@GetStatus');
 	Route::post('profile_pic','Api\UserController@ProfilePic');
-});
+//});
 
 
