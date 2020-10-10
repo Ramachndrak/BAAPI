@@ -245,13 +245,13 @@ class UserController extends Controller
 
             $user_id = $request->user_id;
 
-            $ProfileScreen_check = ProfileScreen::where('user_id',$user_id)->first();
+            /*$ProfileScreen_check = ProfileScreen::where('user_id',$user_id)->first();
             if(count($ProfileScreen_check)>0)
             {
 
             }
             else
-            {
+            {*/
                 $profileScreen = new ProfileScreen();
                 $profileScreen->user_id          = $request->user_id;
                 $profileScreen->profiles_created_by_id  = $request->profiles_created_by_id;
@@ -273,10 +273,7 @@ class UserController extends Controller
                                  ->first();
 
                 return response()->json(['success'=>'true','message'=>'Profile Screen Saved successfully','profile_info' => $profile_info], 200);
-            }
-
-
-            
+            //}            
         }
     }
 
