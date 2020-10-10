@@ -105,7 +105,6 @@ class UserController extends Controller
         'father_profession' => 'required',
         'mother_name'   => 'required',
         'mother_profession' => 'required',
-        'no_of_siblings'    => 'required',
         'address'           => 'required'
     ];
 
@@ -114,7 +113,6 @@ class UserController extends Controller
         'father_profession.required' => 'Please Enter Fathter Profession',
         'mother_name.required'      => 'Please Enter Mother Name',
         'mother_profession.required' => 'Please Enter Mother Profession',
-        'no_of_siblings.required'    => 'Please Enter No of Siblings',
         'address.required'           => 'Please Enter Address'
 
     ];
@@ -244,11 +242,10 @@ class UserController extends Controller
         } else {
 
             $user_id = $request->user_id;
-
             /*$ProfileScreen_check = ProfileScreen::where('user_id',$user_id)->first();
             if(count($ProfileScreen_check)>0)
             {
-
+                $ProfileScreen_check->
             }
             else
             {*/
