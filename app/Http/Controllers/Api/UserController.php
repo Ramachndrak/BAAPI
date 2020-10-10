@@ -171,7 +171,7 @@ class UserController extends Controller
         }
         else {
 
-            return Response::json(['error'=>'false','message'=>'Invalid Credentials'], 449);
+            return Response::json(['error'=>'false','message'=>'Invalid Credentials'], 401);
         }
     }
 
@@ -334,7 +334,7 @@ class UserController extends Controller
             $FamilyDetails->sister_not_married = $request->sister_not_married;
             $FamilyDetails->save();
             $update_flag = User::where('id',$request->user_id)
-                           ->update(['flag' => 4]);
+                           ->update(['flag' => 5]);
 
             $family_info = User::select('id','flag')
                              ->where('id',$request->user_id)
