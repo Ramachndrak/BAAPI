@@ -267,6 +267,7 @@ class UserController extends Controller
             {
                 $profileScreen = new ProfileScreen();
                 $profileScreen->user_id          = $request->user_id;
+                $profileScreen->page_title          = $request->page_title;
                 $profileScreen->profiles_created_by_id  = $request->profiles_created_by_id;
                 $profileScreen->date_of_birth           = $request->date_of_birth;
                 $profileScreen->martial_status          = $request->martial_status;
@@ -320,6 +321,7 @@ class UserController extends Controller
             {
                 $ReligionBackground = new ReligionBackground();
                 $ReligionBackground->user_id          = $request->user_id;
+                $ReligionBackground->page_title          = $request->page_title;
                 $ReligionBackground->religion_id      = $request->religion_id;
                 $ReligionBackground->community_id     = $request->community_id;
                 $ReligionBackground->sub_community_id = $request->sub_community_id;
@@ -367,6 +369,7 @@ class UserController extends Controller
             {
                 $EducationDetails = new EducationDetails();
                 $EducationDetails->user_id = $request->user_id;
+                $EducationDetails->page_title = $request->page_title;
                 $EducationDetails->highest_qualification = $request->highest_qualification;
                 $EducationDetails->college_attend = $request->college_attend;
                 $EducationDetails->working_as = $request->working_as;
@@ -418,6 +421,7 @@ class UserController extends Controller
             {
                 $FamilyDetails = new FamilyDetails();
                 $FamilyDetails->user_id = $request->user_id;
+                $FamilyDetails->page_title = $request->page_title;
                 $FamilyDetails->father_name = $request->father_name;
                 $FamilyDetails->father_profession = $request->father_profession;
                 $FamilyDetails->mother_name = $request->mother_name;
