@@ -131,7 +131,19 @@ class UserController extends Controller
             return Response::json(array('errors' => $validator->getMessageBag()->toArray()),449);
         } else { 
 
+            $random = rand (00000,99999);
+            $check_random = User::select('random_id')->where('random_id',$random)->first();
+            if(count($check_random)>0)
+            {
+                $random = rand (00000,99999);
+                $random_string = 'BAB'.$random;
+            }
+            else
+            {
+                $random_string = 'BAB'.$random;
+            }
 	        $user = User::create([
+                'random_id'     => $random_string,
 	            'name' 	        => $request->name,
 	            'email' 	    => $request->email,
 	            'mobile_num'    => $request->mobile_num,
