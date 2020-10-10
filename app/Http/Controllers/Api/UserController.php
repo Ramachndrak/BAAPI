@@ -297,23 +297,45 @@ class UserController extends Controller
             return Response::json(array('errors' => $validator->getMessageBag()->toArray()),449);
         } else {
                     
-            $ReligionBackground = new ReligionBackground();
-            $ReligionBackground->user_id          = $request->user_id;            
-            $ReligionBackground->religion_id      = $request->religion_id;
-            $ReligionBackground->community_id     = $request->community_id;
-            $ReligionBackground->sub_community_id = $request->sub_community_id;
-            $ReligionBackground->gotram           = $request->gotram;
-            $ReligionBackground->maternal_gotram  = $request->maternal_gotram;            
-            $ReligionBackground->mother_tongue_id = $request->mother_tongue_id;
-            $ReligionBackground->city_of_birth    = $request->city_of_birth;
-            $ReligionBackground->rashi            = $request->rashi;
-            $ReligionBackground->save();
-            $update_flag = User::where('id',$request->user_id)
-                           ->update(['flag' => 3]);
-            $religion_info = User::select('id','flag')
-                             ->where('id',$request->user_id)
-                             ->first();
-            return response()->json(['success'=>'true','message'=>'Religion Background Saved successfully','religion_info' => $religion_info], 200);
+            $user_id =  $request->user_id;
+
+            $ReligionBackground_check = ReligionBackground::where('user_id',$user_id)->first();
+            if(count($ReligionBackground_check)>0)
+            {
+                $ReligionBackground_check->religion_id      = $request->religion_id;
+                $ReligionBackground_check->community_id     = $request->community_id;
+                $ReligionBackground_check->sub_community_id = $request->sub_community_id;
+                $ReligionBackground_check->gotram           = $request->gotram;
+                $ReligionBackground_check->maternal_gotram  = $request->maternal_gotram;            
+                $ReligionBackground_check->mother_tongue_id = $request->mother_tongue_id;
+                $ReligionBackground_check->city_of_birth    = $request->city_of_birth;
+                $ReligionBackground_check->rashi            = $request->rashi;
+                $ReligionBackground_check->save();
+                $religion_info = User::select('id','flag')
+                                 ->where('id',$request->user_id)
+                                 ->first();
+                return response()->json(['success'=>'true','message'=>'Religion Details Updated successfully','religion_info' => $religion_info], 200);
+            }
+            else
+            {
+                $ReligionBackground = new ReligionBackground();
+                $ReligionBackground->user_id          = $request->user_id;
+                $ReligionBackground->religion_id      = $request->religion_id;
+                $ReligionBackground->community_id     = $request->community_id;
+                $ReligionBackground->sub_community_id = $request->sub_community_id;
+                $ReligionBackground->gotram           = $request->gotram;
+                $ReligionBackground->maternal_gotram  = $request->maternal_gotram;            
+                $ReligionBackground->mother_tongue_id = $request->mother_tongue_id;
+                $ReligionBackground->city_of_birth    = $request->city_of_birth;
+                $ReligionBackground->rashi            = $request->rashi;
+                $ReligionBackground->save();
+                $update_flag = User::where('id',$request->user_id)
+                               ->update(['flag' => 3]);
+                $religion_info = User::select('id','flag')
+                                 ->where('id',$request->user_id)
+                                 ->first();
+                return response()->json(['success'=>'true','message'=>'Religion Background Saved successfully','religion_info' => $religion_info], 200);
+            }
         }
     }
 
@@ -323,25 +345,44 @@ class UserController extends Controller
         if ($validator->fails()) {
             return Response::json(array('errors' => $validator->getMessageBag()->toArray()),449);
         } else {
-            $EducationDetails = new EducationDetails();
-            $EducationDetails->user_id = $request->user_id;
-            $EducationDetails->highest_qualification = $request->highest_qualification;
-            $EducationDetails->college_attend = $request->college_attend;
-            $EducationDetails->working_as = $request->working_as;
-            $EducationDetails->company = $request->company;
-            $EducationDetails->annual_income = $request->annual_income;
-            $EducationDetails->save();
 
-            $update_flag = User::where('id',$request->user_id)
-                           ->update(['flag' => 4]);
+            $user_id = $request->user_id;
+            $EducationDetails_check = EducationDetails::where('user_id',$user_id)->first();
 
-            $education_info = User::select('id','flag')
-                             ->where('id',$request->user_id)
-                             ->first();
+            if(count($EducationDetails_check)>0)
+            {
+                $EducationDetails_check->highest_qualification = $request->highest_qualification;
+                $EducationDetails_check->college_attend = $request->college_attend;
+                $EducationDetails_check->working_as = $request->working_as;
+                $EducationDetails_check->company = $request->company;
+                $EducationDetails_check->annual_income = $request->annual_income;
+                $EducationDetails_check->save();
+                $education_info = User::select('id','flag')
+                                 ->where('id',$request->user_id)
+                                 ->first();
 
-            return response()->json(['success'=>'true','message'=>'Education Details saved successfully','education_info' => $education_info], 200);                 
+                return response()->json(['success'=>'true','message'=>'Education Details Updated successfully','education_info' => $education_info], 200);
+            }
+            else
+            {
+                $EducationDetails = new EducationDetails();
+                $EducationDetails->user_id = $request->user_id;
+                $EducationDetails->highest_qualification = $request->highest_qualification;
+                $EducationDetails->college_attend = $request->college_attend;
+                $EducationDetails->working_as = $request->working_as;
+                $EducationDetails->company = $request->company;
+                $EducationDetails->annual_income = $request->annual_income;
+                $EducationDetails->save();
 
+                $update_flag = User::where('id',$request->user_id)
+                               ->update(['flag' => 4]);
 
+                $education_info = User::select('id','flag')
+                                 ->where('id',$request->user_id)
+                                 ->first();
+
+                return response()->json(['success'=>'true','message'=>'Education Details saved successfully','education_info' => $education_info], 200);
+            }
         }
     }
 
@@ -351,28 +392,53 @@ class UserController extends Controller
         if ($validator->fails()) {
             return Response::json(array('errors' => $validator->getMessageBag()->toArray()),449);
         } else {
-            $FamilyDetails = new FamilyDetails();
-            $FamilyDetails->user_id = $request->user_id;
-            $FamilyDetails->father_name = $request->father_name;
-            $FamilyDetails->father_profession = $request->father_profession;
-            $FamilyDetails->mother_name = $request->mother_name;
-            $FamilyDetails->mother_profession = $request->mother_profession;
-            $FamilyDetails->no_of_brothers = $request->no_of_brothers;
-            $FamilyDetails->brother_married = $request->brother_married;
-            $FamilyDetails->brother_not_married = $request->brother_not_married;
-            $FamilyDetails->no_of_sisters = $request->no_of_sisters;
-            $FamilyDetails->sister_married = $request->sister_married;
-            $FamilyDetails->sister_not_married = $request->sister_not_married;
-            $FamilyDetails->address = $request->address;
-            $FamilyDetails->save();
-            $update_flag = User::where('id',$request->user_id)
-                           ->update(['flag' => 5]);
+            $user_id = $request->user_id;
+            $FamilyDetails_check = FamilyDetails::where('user_id',$user_id)->first();
+            if(count($FamilyDetails_check)>0)
+            {
+                $FamilyDetails_check->father_name = $request->father_name;
+                $FamilyDetails_check->father_profession = $request->father_profession;
+                $FamilyDetails_check->mother_name = $request->mother_name;
+                $FamilyDetails_check->mother_profession = $request->mother_profession;
+                $FamilyDetails_check->no_of_brothers = $request->no_of_brothers;
+                $FamilyDetails_check->brother_married = $request->brother_married;
+                $FamilyDetails_check->brother_not_married = $request->brother_not_married;
+                $FamilyDetails_check->no_of_sisters = $request->no_of_sisters;
+                $FamilyDetails_check->sister_married = $request->sister_married;
+                $FamilyDetails_check->sister_not_married = $request->sister_not_married;
+                $FamilyDetails_check->address = $request->address;
+                $FamilyDetails_check->save();
+                 $family_info = User::select('id','flag')
+                                 ->where('id',$request->user_id)
+                                 ->first();
 
-            $family_info = User::select('id','flag')
-                             ->where('id',$request->user_id)
-                             ->first();
+                return response()->json(['success'=>'true','message'=>'Family Details Updated successfully','family_info' => $family_info], 200);
+            }
+            else
+            {
+                $FamilyDetails = new FamilyDetails();
+                $FamilyDetails->user_id = $request->user_id;
+                $FamilyDetails->father_name = $request->father_name;
+                $FamilyDetails->father_profession = $request->father_profession;
+                $FamilyDetails->mother_name = $request->mother_name;
+                $FamilyDetails->mother_profession = $request->mother_profession;
+                $FamilyDetails->no_of_brothers = $request->no_of_brothers;
+                $FamilyDetails->brother_married = $request->brother_married;
+                $FamilyDetails->brother_not_married = $request->brother_not_married;
+                $FamilyDetails->no_of_sisters = $request->no_of_sisters;
+                $FamilyDetails->sister_married = $request->sister_married;
+                $FamilyDetails->sister_not_married = $request->sister_not_married;
+                $FamilyDetails->address = $request->address;
+                $FamilyDetails->save();
+                $update_flag = User::where('id',$request->user_id)
+                               ->update(['flag' => 5]);
 
-            return response()->json(['success'=>'true','message'=>'Family Details saved successfully','family_info' => $family_info], 200);
+                $family_info = User::select('id','flag')
+                                 ->where('id',$request->user_id)
+                                 ->first();
+
+                return response()->json(['success'=>'true','message'=>'Family Details saved successfully','family_info' => $family_info], 200);
+            }            
         }
     }
 
