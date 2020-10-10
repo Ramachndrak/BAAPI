@@ -18,6 +18,7 @@ use App\ReligionBackground;
 use App\ProfileScreen;
 use App\EducationDetails;
 use App\FamilyDetails;
+use App\FaceFair;
 
 class UserController extends Controller
 {
@@ -192,6 +193,12 @@ class UserController extends Controller
     {
     	$Religion = Religion::select('id','religion')->get();
     	return $Religion;
+    }
+
+    public function FaceFair()
+    {
+        $FaceFair = FaceFair::select('id','face_fair')->get();
+        return $FaceFair;
     }
 
     public function Community()
