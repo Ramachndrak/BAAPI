@@ -242,13 +242,29 @@ class UserController extends Controller
         } else {
 
             $user_id = $request->user_id;
-            /*$ProfileScreen_check = ProfileScreen::where('user_id',$user_id)->first();
+            $ProfileScreen_check = ProfileScreen::where('user_id',$user_id)->first();
             if(count($ProfileScreen_check)>0)
             {
-                $ProfileScreen_check->
+                $ProfileScreen_check->profiles_created_by_id  = $request->profiles_created_by_id;
+                $ProfileScreen_check->date_of_birth           = $request->date_of_birth;
+                $ProfileScreen_check->martial_status          = $request->martial_status;
+                $height                                 = $request->height;
+                $height_split = explode(' - ', $height);
+                $ProfileScreen_check->height = $height_split[0];
+                $ProfileScreen_check->inches = $height_split[1];
+                $ProfileScreen_check->weight = $request->weight;
+                $ProfileScreen_check->blood_group_id = $request->blood_group_id;
+                $ProfileScreen_check->fair    = $request->fair;
+                $ProfileScreen_check->save();
+
+                $profile_info = User::select('id','flag')
+                                 ->where('id',$request->user_id)
+                                 ->first();
+
+                return response()->json(['success'=>'true','message'=>'Profile Updated successfully','profile_info' => $profile_info], 200);
             }
             else
-            {*/
+            {
                 $profileScreen = new ProfileScreen();
                 $profileScreen->user_id          = $request->user_id;
                 $profileScreen->profiles_created_by_id  = $request->profiles_created_by_id;
@@ -270,7 +286,7 @@ class UserController extends Controller
                                  ->first();
 
                 return response()->json(['success'=>'true','message'=>'Profile Screen Saved successfully','profile_info' => $profile_info], 200);
-            //}            
+            }            
         }
     }
 
