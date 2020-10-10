@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use DB,Validator,Input,Response,Auth;
+use DB,Validator,Input,Response,Auth,Image,URL;
 use App\ProfileFor;
 use App\User;
 use App\ProfileCreatedBy;
@@ -19,6 +19,7 @@ use App\ProfileScreen;
 use App\EducationDetails;
 use App\FamilyDetails;
 use App\FaceFair;
+use App\ProfilePic;
 
 class UserController extends Controller
 {
@@ -176,7 +177,7 @@ class UserController extends Controller
         	$user_id     =  auth()->user()->id;
         	$flag        =  auth()->user()->flag;
         	$token       =  auth()->user()->createToken('BAToken')->accessToken;
-        	$user_details = User::select('id','name','email','mobile_num','profile_for','flag')->where('status',1)->where('id',$user_id)->first();
+        	$user_details = User::select('id','random_id','name','email','mobile_num','profile_for','flag')->where('status',1)->where('id',$user_id)->first();
 
         	return Response::json(['success'=>'true','message'=>'User logged in successfully','token' => $token,'user_id'=>$user_details,'flag'=>$flag], 200);
         }
@@ -478,6 +479,46 @@ class UserController extends Controller
 
     public function ProfilePic(Request $request)
     {
+        $croppie_images = $request->image;
+        $user_id  = $request->user_id;
+        foreach ($croppie_images as $key => $croppie_code) 
+        {
+            if($key == 0)
+            {
+                if (preg_match('/^data:image\/(\w+);base64,/', $croppie_code, $type)) 
+                {
+                    $encoded_base64_image = substr($croppie_code, strpos($croppie_code, ',') + 1);
+                    $type = strtolower($type[$key]);
+                    $decoded_image = base64_decode($encoded_base64_image);
+                    $resized_image = Image::make($decoded_image)->resize(128, 128);
+                    $resized_image->save('public/profiles/thumbnails/'.$key.'_'.$user_id.'.jpg');
+                }
+            }
+            
+            if (preg_match('/^data:image\/(\w+);base64,/', $croppie_code, $type)) 
+            {
+                $encoded_base64_image = substr($croppie_code, strpos($croppie_code, ',') + 1);
+                $type = strtolower($type[$key]);
+                $decoded_image = base64_decode($encoded_base64_image);
+                $resized_image = Image::make($decoded_image)->resize(400, 400);
+                $image_name = $key.'_'.$user_id.'.jpg';
+                $resized_image->save('public/profiles/main_profiles/'.$image_name);
+            }
 
+            DB::table('profile_pics')->insert(
+                ['user_id' => $user_id, 'profile_pic' => $image_name]
+            );
+        }   
+
+        $profile_path = DB::table('profile_pics')->select('user_id','profile_pic')->where('user_id',$user_id)->get();
+
+        $thumbnails_path = URL::to('/public/thumbnails/0_'.$user_id.'jpg');
+        $main_path = [];
+        foreach ($profile_path as $key => $value) {
+            $path = URL::to('/public/main_profiles/'.$key.'_'.$user_id.'jpg');
+            array_push($main_path, $path);
+        }
+
+        return response()->json(['success'=>'true','message'=>'Profile Pics','thumbnail' =>$thumbnails_path,'main_pics'=>$main_path], 200);
     }
 }
