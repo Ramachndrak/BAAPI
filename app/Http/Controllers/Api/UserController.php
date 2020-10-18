@@ -544,7 +544,7 @@ class UserController extends Controller
 
         $FamilyDetails['Family Details'] =  FamilyDetails::where('user_id',$user_id)->first();
 
-        $profile_pic['pics'] = ProfilePic::where('user_id',$user_id)->get();
+        $profile_pic['pics'] = ProfilePic::where('user_id',$user_id)->first();
 
         return response()->json(['success'=>'true','message'=>'Detailed Info','basic_details' => $user,'profile_screen' => $religion,'education_details' => $education,'family_details' => $FamilyDetails,'profile_pic'=>$profile_pic],200);
 
