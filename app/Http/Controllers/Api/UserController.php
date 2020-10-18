@@ -521,4 +521,34 @@ class UserController extends Controller
 
         return response()->json(['success'=>'true','message'=>'Profile Pics','thumbnail' =>$thumbnails_path,'main_pics'=>$main_path], 200);
     }
+
+    public function ProfileInfo(Request $request)
+    {
+        $user_id = $request->user_id;
+
+
+        $user['Basci Ddetails'] = User::select('random_id','name','email','gender','mobile_num')->where('id',$user_id)->first();
+
+
+        $religion['Profile Screen Details'] = 
+                    DB::table('profiles_screen as ps')
+                    ->leftjoin('profiles_created_by as pcb','pcb.id','=','ps.profiles_created_by_id')
+                    ->leftjoin('blood_group as bg','bg.id','=','ps.blood_group_id')
+                    ->leftjoin('face_fair as f','f.id','=','ps.fair')
+                    ->select('pcb.profiles_created_by','ps.date_of_birth','ps.martial_status','ps.height','ps.inches','ps.weight','bg.blood_group','f.face_fair')
+                    ->where('ps.user_id',$user_id)
+                    ->first();
+
+        $education['Education Details'] = EducationDetails::select('highest_qualification','college_attend','working_as','company','annual_income')->where('user_id',$user_id)->first();
+        
+
+        $FamilyDetails['Family Details'] =  FamilyDetails::where('user_id',$user_id)->first();
+
+        $profile_pic['pics'] = ProfilePic::where('user_id',$user_id)->get();
+
+        return response()->json(['success'=>'true','message'=>'Detailed Info','basic_details' => $user,'profile_screen' => $religion,'education_details' => $education,'family_details' => $FamilyDetails,'profile_pic'=>$profile_pic],200);
+
+
+
+    }
 }

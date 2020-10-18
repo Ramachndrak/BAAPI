@@ -35,6 +35,7 @@ Route::post('login','Api\UserController@Login');
 	Route::post('family_details','Api\UserController@FamilyDetails');
 	Route::post('get_status','Api\UserController@GetStatus');
 	Route::post('profile_pic','Api\UserController@ProfilePic');
+	Route::post('profile_info','Api\UserController@ProfileInfo');
 	
 //});
 
