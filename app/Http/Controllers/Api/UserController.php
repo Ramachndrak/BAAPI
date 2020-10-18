@@ -545,6 +545,6 @@ class UserController extends Controller
 
         $profile_pic = DB::table('profile_pics')->where('user_id',$user_id)->first();
 
-        return response()->json(['success'=>'true','message'=>'Detailed Info','Basci Details' => $user,'Profile Screen Details' => $religion,'Education Details' => $education,'Family Details' => $Family,'profile_pic'=>$profile_pic],200);
+        return response()->json(['success'=>'true','message'=>'Detailed Info','Basic Details' => $user,'Profile Screen Details' => $religion,'Education Details' => $education,'Family Details' => $Family,'profile_pic'=>$profile_pic],200);
     }
 }
