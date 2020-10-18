@@ -527,7 +527,7 @@ class UserController extends Controller
         $user_id = $request->user_id;
 
 
-        $user['Basci Ddetails'] = User::select('random_id','name','email','gender','mobile_num')->where('id',$user_id)->first();
+        $user['Basci Ddetails'] = DB::table('users')->select('random_id','name','email','gender','mobile_num')->where('id',$user_id)->first();
 
 
         $religion['Profile Screen Details'] = 
@@ -539,16 +539,13 @@ class UserController extends Controller
                     ->where('ps.user_id',$user_id)
                     ->first();
 
-        $education['Education Details'] = EducationDetails::select('highest_qualification','college_attend','working_as','company','annual_income')->where('user_id',$user_id)->first();
+        $education['Education Details'] = DB::tabke('educations_details')->select('highest_qualification','college_attend','working_as','company','annual_income')->where('user_id',$user_id)->first();
         
 
-        $FamilyDetails['Family Details'] =  FamilyDetails::where('user_id',$user_id)->first();
+        $Family['Family Details'] =  DB::table('family_details')->where('user_id',$user_id)->first();
 
-        $profile_pic['pics'] = ProfilePic::where('user_id',$user_id)->first();
+        $profile_pic['pics'] = DB::table('profile_pics')->where('user_id',$user_id)->first();
 
-        return response()->json(['success'=>'true','message'=>'Detailed Info','basic_details' => $user,'profile_screen' => $religion,'education_details' => $education,'family_details' => $FamilyDetails,'profile_pic'=>$profile_pic],200);
-
-
-
+        return response()->json(['success'=>'true','message'=>'Detailed Info','basic_details' => $user,'profile_screen' => $religion,'education_details' => $education,'family_details' => $Family,'profile_pic'=>$profile_pic],200);
     }
 }
