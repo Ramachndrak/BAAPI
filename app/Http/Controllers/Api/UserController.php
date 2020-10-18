@@ -527,11 +527,10 @@ class UserController extends Controller
         $user_id = $request->user_id;
 
 
-        $user['Basci Ddetails'] = DB::table('users')->select('random_id','name','email','gender','mobile_num')->where('id',$user_id)->first();
+        $user = DB::table('users')->select('random_id','name','email','gender','mobile_num')->where('id',$user_id)->first();
 
 
-        $religion['Profile Screen Details'] = 
-                    DB::table('profiles_screen as ps')
+        $religion = DB::table('profiles_screen as ps')
                     ->leftjoin('profiles_created_by as pcb','pcb.id','=','ps.profiles_created_by_id')
                     ->leftjoin('blood_group as bg','bg.id','=','ps.blood_group_id')
                     ->leftjoin('face_fair as f','f.id','=','ps.fair')
@@ -539,13 +538,13 @@ class UserController extends Controller
                     ->where('ps.user_id',$user_id)
                     ->first();
 
-        $education['Education Details'] = DB::table('educations_details')->select('highest_qualification','college_attend','working_as','company','annual_income')->where('user_id',$user_id)->first();
+        $education = DB::table('educations_details')->select('highest_qualification','college_attend','working_as','company','annual_income')->where('user_id',$user_id)->first();
         
 
-        $Family['Family Details'] =  DB::table('family_details')->where('user_id',$user_id)->first();
+        $Family =  DB::table('family_details')->where('user_id',$user_id)->first();
 
-        $profile_pic['pics'] = DB::table('profile_pics')->where('user_id',$user_id)->first();
+        $profile_pic = DB::table('profile_pics')->where('user_id',$user_id)->first();
 
-        return response()->json(['success'=>'true','message'=>'Detailed Info','basic_details' => $user,'profile_screen' => $religion,'education_details' => $education,'family_details' => $Family,'profile_pic'=>$profile_pic],200);
+        return response()->json(['success'=>'true','message'=>'Detailed Info','Basci Details' => $user,'Profile Screen Details' => $religion,'Education Details' => $education,'Family Details' => $Family,'profile_pic'=>$profile_pic],200);
     }
 }
