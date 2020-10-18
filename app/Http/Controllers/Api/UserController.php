@@ -539,7 +539,7 @@ class UserController extends Controller
                     ->where('ps.user_id',$user_id)
                     ->first();
 
-        $education['Education Details'] = DB::tabke('educations_details')->select('highest_qualification','college_attend','working_as','company','annual_income')->where('user_id',$user_id)->first();
+        $education['Education Details'] = DB::table('educations_details')->select('highest_qualification','college_attend','working_as','company','annual_income')->where('user_id',$user_id)->first();
         
 
         $Family['Family Details'] =  DB::table('family_details')->where('user_id',$user_id)->first();
