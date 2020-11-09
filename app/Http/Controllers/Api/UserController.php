@@ -547,4 +547,49 @@ class UserController extends Controller
 
         return response()->json(['success'=>'true','message'=>'Detailed Info','Basic Details' => $user,'Profile Screen Details' => $religion,'Education Details' => $education,'Family Details' => $Family,'profile_pic'=>$profile_pic],200);
     }
+
+    public function PreviousData(Request $request)
+    {
+        $user_id = $request->user_id;
+        $type    = $request->page_type;
+        if($page_type = 'profile_screen')
+        {
+            $BasicDetails = DB::table('profiles_screen as ps')
+                            ->leftjoin('profiles_created_by as pcb','pcb.id','=','ps.profiles_created_by_id')
+                            ->leftjoin('blood_group as bg','bg.id','=','ps.blood_group_id')
+                            ->leftjoin('face_fair as ff','ff.id','=','ps.fair')
+                            ->select('pcb.profiles_created_by','bg.blood_group','ps.date_of_birth','ps.martial_status','ps.height','ps.weight','ps.inches','ff.face_fair')
+                            ->where('user_id',$user_id)
+                            ->first();
+
+            return response()->json(['success' => 'true','message' => 'Profile Screen Info','profile_screen' => $BasicDetails],200);
+        }
+        else if($page_type = 'religion')
+        {
+            $religion = DB::table('religions_background as rb')
+                        ->leftjoin('religions as r','r.id','=','rb.religion_id')
+                        ->leftjoin('community as c','c.id','=','rb.community_id')
+                        ->leftjoin('sub_community as sc','sc.id','=','rb.sub_community_id')
+                        ->leftjoin('mother_tongue as mt','mt.id','=','rb.mother_tongue_id')
+                        ->select('r.religion','mt.mother_tongue','c.community','sc.sub_community','rb.gotram','rb.maternal_gotram','rb.city_of_birth','rb.rashi')
+                        ->first();
+
+            return response()->json(['success' => 'true','message' => 'Religion Screen Info','religion' => $religion],200);
+
+
+        }
+        else if($page_type = 'education')
+        {
+            $education = EducationDetails::select('highest_qualification','college_attend','working_as','company','annual_income')
+                ->where('user_id',$user_id)
+                ->first();
+            return response()->json(['success' => 'true','message' => 'education Screen Info','education' => $education],200);    
+
+        }
+        else
+        {
+            $family_details = FamilyDetails::where('user_id',$user_id)->first();
+            return response()->json(['success' => 'true','message' => 'Family  Screen Info','family_details' => $family_details],200);
+        }
+    }
 }
