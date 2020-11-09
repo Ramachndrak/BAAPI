@@ -586,7 +586,7 @@ class UserController extends Controller
             return response()->json(['success' => 'true','message' => 'education Screen Info','education' => $education],200);    
 
         }
-        else
+        else if($page_type = 'family')
         {
             $family_details = FamilyDetails::where('user_id',$user_id)->first();
             return response()->json(['success' => 'true','message' => 'Family  Screen Info','family_details' => $family_details],200);
