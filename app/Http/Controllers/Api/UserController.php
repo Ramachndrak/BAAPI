@@ -552,7 +552,7 @@ class UserController extends Controller
     {
         $user_id = $request->user_id;
         $type    = $request->page_type;
-        if($page_type = 'profile_screen')
+        if($page_type == 'profile_screen')
         {
             $BasicDetails = DB::table('profiles_screen as ps')
                             ->leftjoin('profiles_created_by as pcb','pcb.id','=','ps.profiles_created_by_id')
@@ -564,7 +564,7 @@ class UserController extends Controller
 
             return response()->json(['success' => 'true','message' => 'Profile Screen Info','profile_screen' => $BasicDetails],200);
         }
-        else if($page_type = 'religion')
+        else if($page_type == 'religion')
         {
             $religion = DB::table('religions_background as rb')
                         ->leftjoin('religions as r','r.id','=','rb.religion_id')
@@ -578,7 +578,7 @@ class UserController extends Controller
 
 
         }
-        else if($page_type = 'education')
+        else if($page_type == 'education')
         {
             $education = EducationDetails::select('highest_qualification','college_attend','working_as','company','annual_income')
                 ->where('user_id',$user_id)
@@ -586,7 +586,7 @@ class UserController extends Controller
             return response()->json(['success' => 'true','message' => 'education Screen Info','education' => $education],200);    
 
         }
-        else if($page_type = 'family')
+        else if($page_type == 'family')
         {
             $family_details = FamilyDetails::where('user_id',$user_id)->first();
             return response()->json(['success' => 'true','message' => 'Family  Screen Info','family_details' => $family_details],200);
