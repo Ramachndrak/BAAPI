@@ -530,13 +530,23 @@ class UserController extends Controller
         $user = DB::table('users')->select('random_id','name','email','gender','mobile_num')->where('id',$user_id)->first();
 
 
-        $religion = DB::table('profiles_screen as ps')
+        $profiles_screen = DB::table('profiles_screen as ps')
                     ->leftjoin('profiles_created_by as pcb','pcb.id','=','ps.profiles_created_by_id')
                     ->leftjoin('blood_group as bg','bg.id','=','ps.blood_group_id')
                     ->leftjoin('face_fair as f','f.id','=','ps.fair')
                     ->select('pcb.profiles_created_by','ps.date_of_birth','ps.martial_status','ps.height','ps.inches','ps.weight','bg.blood_group','f.face_fair')
                     ->where('ps.user_id',$user_id)
                     ->first();
+
+        $religion = DB::table('religions_background as rb')
+                    ->leftjoin('religions as r','rb.religion_id','=','r.id')
+                    ->leftjoin('community as c','rb.community_id','=','r.id')
+                    ->leftjoin('sub_community as sc','sc.id','=','c.community_id')
+                    ->leftjoin('mother_tongue as mt','mt.id','=','rb.mother_tongue_id')
+                    ->select('rb.*','r.religion','c.Community','sb.sub_community','mt.mother_tongue_id')
+                    ->where('rb.user_id',$user_id)
+                    ->first();
+
 
         $education = DB::table('educations_details')->select('highest_qualification','college_attend','working_as','company','annual_income')->where('user_id',$user_id)->first();
         
@@ -545,7 +555,7 @@ class UserController extends Controller
 
         $profile_pic = DB::table('profile_pics')->where('user_id',$user_id)->first();
 
-        return response()->json(['success'=>'true','message'=>'Detailed Info','Basic Details' => $user,'Profile Screen Details' => $religion,'Education Details' => $education,'Family Details' => $Family,'profile_pic'=>$profile_pic],200);
+        return response()->json(['success'=>'true','message'=>'Detailed Info','Basic Details' => $user,'Profile Screen Details' => $profiles_screen,'Education Details' => $education,'Family Details' => $Family,'profile_pic'=>$profile_pic,'religion'=>$religion],200);
     }
 
     public function PreviousData(Request $request)
