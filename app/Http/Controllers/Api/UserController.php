@@ -551,7 +551,7 @@ class UserController extends Controller
     public function PreviousData(Request $request)
     {
         $user_id = $request->user_id;
-        $type    = $request->page_type;
+        $page_type    = $request->page_type;
         if($page_type == 'profile_screen')
         {
             $BasicDetails = DB::table('profiles_screen as ps')
