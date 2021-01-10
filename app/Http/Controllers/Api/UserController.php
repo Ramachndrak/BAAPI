@@ -543,7 +543,7 @@ class UserController extends Controller
                     ->leftjoin('community as c','rb.community_id','=','r.id')
                     ->leftjoin('sub_community as sc','sc.id','=','c.community_id')
                     ->leftjoin('mother_tongue as mt','mt.id','=','rb.mother_tongue_id')
-                    ->select('rb.*','r.religion','c.Community','sc.sub_community','mt.mother_tongue_id')
+                    ->select('rb.*','r.religion','c.Community','sc.sub_community','mt.mother_tongue')
                     ->where('rb.user_id',$user_id)
                     ->first();
 
