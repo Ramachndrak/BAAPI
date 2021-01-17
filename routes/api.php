@@ -37,7 +37,7 @@ Route::post('login','Api\UserController@Login');
 	Route::post('profile_pic','Api\UserController@ProfilePic');
 	Route::post('profile_info','Api\UserController@ProfileInfo');
 	Route::post('previous_data','Api\UserController@PreviousData');
-	Route::post('recommended_profiles','Api\RecommentedProfiles@RecommentedProfiles');
+	Route::post('recommended_profiles','Api\RecommentedAndRecentController@RecommentedProfiles');
 	
 //});
 
