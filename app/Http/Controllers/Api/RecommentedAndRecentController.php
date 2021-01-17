@@ -56,7 +56,8 @@ class RecommentedAndRecentController extends Controller
 
     			array_push($recommended_profiles, $recommended);
 
-    			return response()->json(['success'=>'true','message'=>'Recommented Profiles' =>$recommended_profiles,'main_pics'=>$main_path], 200);
+
+                return response()->json(['success'=>'true','message'=>'Recommented Profiles','recommended_profiles' =>$recommended_profiles,'main_pics'=>$main_path], 200);
 
 
     		}
@@ -102,7 +103,7 @@ class RecommentedAndRecentController extends Controller
 
                 array_push($recommended_profiles, $recommended);
 
-                return response()->json(['success'=>'true','message'=>'Recommented Profiles' =>$recommended_profiles,'main_pics'=>$main_path], 200);
+                return response()->json(['success'=>'true','message'=>'Recommented Profiles','recommended_profiles' =>$recommended_profiles,'main_pics'=>$main_path], 200);
 
 
             }
