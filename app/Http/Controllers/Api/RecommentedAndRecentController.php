@@ -15,7 +15,7 @@ class RecommentedAndRecentController extends Controller
     				  ->select('gender')
     				  ->where('id',$user_id)
     				  ->first();
-    	$gender = $get_gender->gender;
+    	$gender = (int)$get_gender->gender;
 
     	if($gender == 1)
     	{
@@ -27,7 +27,7 @@ class RecommentedAndRecentController extends Controller
     						 ->first();
 
     		$another_profiles = DB::table('users')
-    					       ->whereNotBetween('gender',$gender)
+    					       ->whereNotIn('gender',[$gender])
     					       ->get();
 			
 			$recommended_profiles = [];
@@ -74,7 +74,7 @@ class RecommentedAndRecentController extends Controller
                              ->first();
 
             $another_profiles = DB::table('users')
-                               ->whereNotBetween('gender',$gender)
+                               ->whereNotIn('gender',[$gender])
                                ->get();
             
             $recommended_profiles = [];
