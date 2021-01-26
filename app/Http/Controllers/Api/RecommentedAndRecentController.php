@@ -57,9 +57,14 @@ class RecommentedAndRecentController extends Controller
 
     			array_push($recommended_profiles, $recommended);
 
-
-                return response()->json(['success'=>'true','message'=>'Recommented Profiles','recommended_profiles' =>$recommended_profiles,'main_pics'=>$main_path], 200);
-
+                if(count($recommended_profiles)>0)
+                {
+                    return response()->json(['success'=>'true','message'=>'Recommented Profiles','recommended_profiles' =>$recommended_profiles,'main_pics'=>$main_path], 200);
+                }
+                else
+                {
+                    return response()->json(['error'=>'false','message'=>'Recommented Profiles','recommended_profiles' =>''], 449);
+                }
 
     		}
 
@@ -104,7 +109,15 @@ class RecommentedAndRecentController extends Controller
 
                 array_push($recommended_profiles, $recommended);
 
-                return response()->json(['success'=>'true','message'=>'Recommented Profiles','recommended_profiles' =>$recommended_profiles,'main_pics'=>$main_path], 200);
+                if(count($recommended_profiles)>0)
+                {
+                    return response()->json(['success'=>'true','message'=>'Recommented Profiles','recommended_profiles' =>$recommended_profiles,'main_pics'=>$main_path], 200);
+                }
+                else
+                {
+                    return response()->json(['error'=>'false','message'=>'Recommented Profiles','recommended_profiles' =>''], 449);
+                }
+                
 
 
             }
