@@ -63,7 +63,7 @@ class RecommentedAndRecentController extends Controller
                 }
                 else
                 {
-                    return response()->json(['error'=>'false','message'=>'Recommented Profiles','recommended_profiles' =>''], 449);
+                    return response()->json(['error'=>'false','message'=>'No Recommented Profiles','recommended_profiles' =>''], 449);
                 }
 
     		}
@@ -115,7 +115,7 @@ class RecommentedAndRecentController extends Controller
                 }
                 else
                 {
-                    return response()->json(['error'=>'false','message'=>'Recommented Profiles','recommended_profiles' =>''], 449);
+                    return response()->json(['error'=>'false','message'=>'No Recommented Profiles','recommended_profiles' =>''], 449);
                 }
                 
 
