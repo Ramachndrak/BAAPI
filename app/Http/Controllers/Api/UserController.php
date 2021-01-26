@@ -541,7 +541,7 @@ class UserController extends Controller
         $religion = DB::table('religions_background as rb')
                     ->leftjoin('religions as r','rb.religion_id','=','r.id')
                     ->leftjoin('community as c','rb.community_id','=','r.id')
-                    ->leftjoin('sub_community as sc','sc.id','=','c.community_id')
+                    ->leftjoin('sub_community as sc','sc.id','=','rb.community_id')
                     ->leftjoin('mother_tongue as mt','mt.id','=','rb.mother_tongue_id')
                     ->select('rb.*','r.religion','c.community','sc.sub_community','mt.mother_tongue')
                     ->where('rb.user_id',$user_id)
