@@ -16,6 +16,7 @@ class AddRandomIdUserTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('random_id')->after('id');
         });
+        
     }
 
     /**

@@ -117,10 +117,28 @@ class RecommentedAndRecentController extends Controller
                 {
                     return response()->json(['error'=>'false','message'=>'No Recommented Profiles','recommended_profiles' =>''], 449);
                 }
-                
-
 
             }
+        }
+    }
+
+    public function NewJoinedProfiles(Request $request)
+    {
+        $user_id = $request->user_id;
+
+        $get_gender = DB::table('users')
+                      ->select('gender')
+                      ->where('id',$user_id)
+                      ->first();
+        $gender = (int)$get_gender->gender;
+        if($gender == 1)
+        {
+            $get_user_info = DB::table('users as u')
+                             ->leftjoin('profiles_screen as ps','ps.user_id','=','u.id')
+                             ->leftjoin('religions_background as rb','rb.user_id','=','u.id')
+                             ->leftjoin('community as c','c.id','=','rb.community_id')
+                             ->select('ps.height','rb.community_id','rb.religion_id')
+                             ->first();
         }
     }
 }

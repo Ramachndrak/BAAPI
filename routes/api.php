@@ -38,6 +38,7 @@ Route::post('login','Api\UserController@Login');
 	Route::post('profile_info','Api\UserController@ProfileInfo');
 	Route::post('previous_data','Api\UserController@PreviousData');
 	Route::post('recommended_profiles','Api\RecommentedAndRecentController@RecommentedProfiles');
+	Route::post('new_joined_profiles','Api\RecommentedAndRecentController@NewJoinedProfiles');
 	
 //});
 
