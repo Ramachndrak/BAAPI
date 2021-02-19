@@ -19,7 +19,7 @@ class User extends Authenticatable
     protected $table="users";
 
     protected $fillable = [
-        'name', 'email', 'password','mobile_num','profile_for','status','gender','flag'
+        'random_id','name', 'email', 'password','mobile_num','profile_for','status','gender','flag'
     ];
 
     public $timestamps = true;
