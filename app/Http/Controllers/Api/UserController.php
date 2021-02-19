@@ -155,15 +155,15 @@ class UserController extends Controller
 	            'flag'          => 1
 	        ]);
 	 
-	        $token = $user->createToken('BAToken')->accessToken;
-	        if($user)
-	        {
-	        	return response()->json(['success'=>'true','message'=>'Registered successfully','token' => $token], 200);
-	        }
-	        else
-	        {
-	        	return response()->json(['error'=>'false','message'=>'Something went Wrong'], 400);
-	        }	        
+	        //$token = $user->createToken('BAToken')->accessToken;
+            if($user)
+            {
+                return response()->json(['success'=>'true','message'=>'Registered successfully'], 200);
+            }
+            else
+            {
+                return response()->json(['error'=>'false','message'=>'Something went Wrong'], 400);
+            } 	        
        }
     }
 
