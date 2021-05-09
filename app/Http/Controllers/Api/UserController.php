@@ -512,10 +512,10 @@ class UserController extends Controller
 
         $profile_path = DB::table('profile_pics')->select('user_id','profile_pic')->where('user_id',$user_id)->get();
 
-        $thumbnails_path = URL::to('/public/thumbnails/0_'.$user_id.'jpg');
+        $thumbnails_path = URL::to('/public/profiles/thumbnails/0_'.$user_id.'.jpg');
         $main_path = [];
         foreach ($profile_path as $key => $value) {
-            $path = URL::to('/public/main_profiles/'.$key.'_'.$user_id.'jpg');
+            $path = URL::to('/public/profiles/main_profiles/'.$key.'_'.$user_id.'.jpg');
             array_push($main_path, $path);
         }
 
