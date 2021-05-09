@@ -519,6 +519,11 @@ class UserController extends Controller
             array_push($main_path, $path);
         }
 
+
+       User::select('flag')
+      ->where('id',$user_id)
+      ->update(['flag' => 5]);
+
         return response()->json(['success'=>'true','message'=>'Profile Pics','thumbnail' =>$thumbnails_path,'main_pics'=>$main_path], 200);
     }
 
@@ -601,5 +606,10 @@ class UserController extends Controller
             $family_details = FamilyDetails::where('user_id',$user_id)->first();
             return response()->json(['success' => 'true','message' => 'Family  Screen Info','family_details' => $family_details],200);
         }
+        /*else
+        {
+            $pic_details = FamilyDetails::where('user_id',$user_id)->first();
+            return response()->json(['success' => 'true','message' => 'Pic Details','family_details' => $pic_details],200);
+        }*/
     }
 }
