@@ -141,6 +141,10 @@ class RecommentedAndRecentController extends Controller
                              ->leftjoin('community as c','c.id','=','rb.community_id')
                              ->select('ps.height','rb.community_id','rb.religion_id')
                              ->first();
+
+
+            
         }
+
     }
 }
