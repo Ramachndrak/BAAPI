@@ -522,7 +522,7 @@ class UserController extends Controller
 
        User::select('flag')
       ->where('id',$user_id)
-      ->update(['flag' => 5]);
+      ->update(['flag' => 0]);
 
         return response()->json(['success'=>'true','message'=>'Profile Pics','thumbnail' =>$thumbnails_path,'main_pics'=>$main_path], 200);
     }
@@ -587,6 +587,7 @@ class UserController extends Controller
                         ->leftjoin('sub_community as sc','sc.id','=','rb.sub_community_id')
                         ->leftjoin('mother_tongue as mt','mt.id','=','rb.mother_tongue_id')
                         ->select('r.religion','mt.mother_tongue','c.community','sc.sub_community','rb.gotram','rb.maternal_gotram','rb.city_of_birth','rb.rashi')
+                        ->where('user_id',$user_id)
                         ->first();
 
             return response()->json(['success' => 'true','message' => 'Religion Screen Info','religion' => $religion],200);
