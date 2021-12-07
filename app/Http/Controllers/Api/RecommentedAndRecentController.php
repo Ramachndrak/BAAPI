@@ -25,7 +25,7 @@ class RecommentedAndRecentController extends Controller
     						 ->leftjoin('religions_background as rb','rb.user_id','=','u.id')
     						 ->leftjoin('community as c','c.id','=','rb.community_id')
     						 ->select('ps.height','rb.community_id','rb.religion_id')
-                             ->where('id',$user_id)
+                             ->where('u.id',$user_id)
     						 ->first();
 
     		$another_profiles = DB::table('users')
@@ -43,7 +43,7 @@ class RecommentedAndRecentController extends Controller
             						 /*->where('ps.height','<=',$get_user_info->height)
             						 ->where('rb.community_id',$get_user_info->community_id)
             						 ->where('rb.religion_id',$get_user_info->religion_id)*/
-                                     ->where('id',$value->id)
+                                     ->where('u.id',$value->id)
             						 ->first();
 
                 $user_id = $value->id;             
@@ -78,7 +78,7 @@ class RecommentedAndRecentController extends Controller
                              ->leftjoin('religions_background as rb','rb.user_id','=','u.id')
                              ->leftjoin('community as c','c.id','=','rb.community_id')
                              ->select('ps.height','rb.community_id','rb.religion_id')
-                             ->where('id',$user_id)
+                             ->where('u.id',$user_id)
                              ->first();
 
             $another_profiles = DB::table('users')
@@ -96,7 +96,7 @@ class RecommentedAndRecentController extends Controller
                              /*->where('ps.height','<=',$get_user_info->height)
                              ->where('rb.community_id',$get_user_info->community_id)
                              ->where('rb.religion_id',$get_user_info->religion_id)*/
-                              ->where('id',$value->id)
+                              ->where('u.id',$value->id)
                              ->first();
 
                 $user_id = $value->id;             

@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Validator;
-use App\OtpForPwd;
 use App\User;
+use URL;
 
 class ProfileDetails extends Controller
 {
@@ -16,7 +16,7 @@ class ProfileDetails extends Controller
 
     protected $messages = [
 
-        'email.required' => 'PLease enter Email';
+        'email.required' => 'PLease enter Email'
 
     ];
 
@@ -32,11 +32,11 @@ class ProfileDetails extends Controller
     ];
     public function ForgotPwd(Request $request)
     {
-        $validator = Validator::make(Input::all(), $this->rules,$this->messages);
+        $validator = Validator::make($request->all(), $this->rules,$this->messages);
         if ($validator->fails()) {
             return Response::json(array('errors' => $validator->getMessageBag()->toArray()),200);
         } else { 
-            $email = $required->email;
+            $email = $request->email;
             $check = User::where('email',$email)->exists();
             if(!empty($check))
             {
@@ -52,14 +52,13 @@ class ProfileDetails extends Controller
 
     public function UpdatePwd(Request $request)
     {
-        $validator = Validator::make(Input::all(), $this->pwdrules,$this->pwdmessages);
+        $validator = Validator::make($request->all(), $this->pwdrules,$this->pwdmessages);
         if ($validator->fails()) {
             return Response::json(array('errors' => $validator->getMessageBag()->toArray()),200);
         } else { 
-            $email = $required->email;
-            //$check = User::select('id')->where('email',$email)->first();
+            $email = $request->email;
             $password = $request->password;
-            $cpassword = $request->password_confirmation;
+            $cpassword = bcrypt($request->password_confirmation);
             $update_pwd = User::where('email',$email)
                           ->update(['password' => $cpassword]);
             if($update_pwd)
@@ -71,6 +70,12 @@ class ProfileDetails extends Controller
                 return response()->json(['error'=>'false','message'=>'Password Not Updated'], 200);
             }
         }
+    }
+
+    public function PrivacyPolicy()
+    {
+        $path = URL::to('/public/pdf/privacy_policy.pdf');
+        return $path;
     }
 }
  
