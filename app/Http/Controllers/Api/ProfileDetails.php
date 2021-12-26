@@ -47,39 +47,40 @@ class ProfileDetails extends Controller
             {
                 return response()->json(['error'=>'false','message'=>'User Not Exists'], 200);
             }
-            
-	            }
-	    }
-
-        public function UpdatePwd(Request $request)
-        {
-            $validator = Validator::make($request->all(), $this->pwdrules,$this->pwdmessages);
-            if ($validator->fails()) {
-                return Response::json(array('errors' => $validator->getMessageBag()->toArray()),200);
-            } else { 
-              $email = $request->email;
-              $password = $request->password;
-              $cpassword = bcrypt($request->password_confirmation);
-              $update_pwd = User::where('email',$email)
-                            ->update(['password' => $cpassword]);
-               if($update_pwd)
-               {
-                  return response()->json(['success'=>'true','message'=>'Password Updated successfully'], 200);
-               }
-               else
-              {
-                  return response()->json(['error'=>'false','message'=>'Password Not Updated'], 200);
-              }
-           }
-	}
-    	public function PrivacyPolicy($filename)
-	{
-		    return response()->file('storage/pdf/'.$filename);
-
-	}
-	public function Terms($filename)
-	{
-		return response()->file('storage/pdf/'.$filename);
-	}
+        }
     }
+
+    public function UpdatePwd(Request $request)
+    {
+        $validator = Validator::make($request->all(), $this->pwdrules,$this->pwdmessages);
+        if ($validator->fails()) {
+            return Response::json(array('errors' => $validator->getMessageBag()->toArray()),200);
+        } else { 
+            $email = $request->email;
+            $password = $request->password;
+            $cpassword = bcrypt($request->password_confirmation);
+            $update_pwd = User::where('email',$email)
+                          ->update(['password' => $cpassword]);
+            if($update_pwd)
+            {
+                 return response()->json(['success'=>'true','message'=>'Password Updated successfully'], 200);
+            }
+            else
+            {
+                return response()->json(['error'=>'false','message'=>'Password Not Updated'], 200);
+            }
+        }
+    }
+
+    public function PrivacyPolicy()
+    {
+        $filename = 'privacy_policy.pdf';
+        $path = storage_path($filename);
+
+        return Response::make(file_get_contents($path), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="'.$filename.'"'
+        ]);
+    }
+}
  

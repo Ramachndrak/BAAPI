@@ -44,6 +44,9 @@ Route::post('login','Api\UserController@Login');
 	Route::get('privacy_policy/{filename}','Api\ProfileDetails@PrivacyPolicy');
 	Route::get('termscondition/{filename}','Api\ProfileDetails@Terms');
 	
+	Route::post('forgotpassword','Api\ProfileDetails@ForgotPwd');
+	Route::post('updatePwd','Api\ProfileDetails@UpdatePwd');
+	Route::get('privacy_policy','Api\ProfileDetails@PrivacyPolicy');
 //});
 
 

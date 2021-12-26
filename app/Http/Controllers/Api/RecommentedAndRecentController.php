@@ -23,8 +23,8 @@ class RecommentedAndRecentController extends Controller
     						 ->leftjoin('profiles_screen as ps','ps.user_id','=','u.id')
     						 ->leftjoin('religions_background as rb','rb.user_id','=','u.id')
     						 ->leftjoin('community as c','c.id','=','rb.community_id')
-						 ->select('ps.height','rb.community_id','rb.religion_id')
-					 	->where('u.id',$user_id)
+    						 ->select('ps.height','rb.community_id','rb.religion_id')
+                             			->where('u.id',$user_id)
     						 ->first();
 
     		$another_profiles = DB::table('users')
@@ -40,9 +40,9 @@ class RecommentedAndRecentController extends Controller
             						 ->join('religions as r','r.id','=','rb.religion_id')
             						 ->select('u.*','ps.date_of_birth','rb.gotram','rb.maternal_gotram','rb.city_of_birth','rb.rashi','c.community','r.religion')
             						 /*->where('ps.height','<=',$get_user_info->height)
-					                   ->where('rb.community_id',$get_user_info->community_id)
-							   ->where('rb.religion_id',$get_user_info->religion_id)*/
-						        ->where('u.id',$value->id)
+            						 ->where('rb.community_id',$get_user_info->community_id)
+            						 ->where('rb.religion_id',$get_user_info->religion_id)*/
+                                     			->where('u.id',$value->id)
             						 ->first();
 
                 $user_id = $value->id;             
@@ -58,15 +58,14 @@ class RecommentedAndRecentController extends Controller
 
     			array_push($recommended_profiles, $recommended);
 
-		}
-		if(count($recommended_profiles)>0)
-		{
-		      return response()->json(['success'=>'true','message'=>'Recommented Profiles','recommended_profiles' =>$recommended_profiles,'main_pics'=>$main_path], 200);
-		}
-		else
-		{
-		     return response()->json(['error'=>'false','message'=>'No Recommented Profiles','recommended_profiles' =>''], 449);
-		}
+            if(count($recommended_profiles)>0)
+            {
+                return response()->json(['success'=>'true','message'=>'Recommented Profiles','recommended_profiles' =>$recommended_profiles,'main_pics'=>$main_path], 200);
+            }
+            else
+            {
+                return response()->json(['error'=>'false','message'=>'No Recommented Profiles','recommended_profiles' =>''], 449);
+            }
 
     	}
         else
@@ -76,8 +75,8 @@ class RecommentedAndRecentController extends Controller
                              ->leftjoin('profiles_screen as ps','ps.user_id','=','u.id')
                              ->leftjoin('religions_background as rb','rb.user_id','=','u.id')
                              ->leftjoin('community as c','c.id','=','rb.community_id')
-			     ->select('ps.height','rb.community_id','rb.religion_id')
-		            ->where('u.id',$user_id)
+                             ->select('ps.height','rb.community_id','rb.religion_id')
+                             ->where('u.id',$user_id)
                              ->first();
 
             $another_profiles = DB::table('users')
@@ -93,8 +92,8 @@ class RecommentedAndRecentController extends Controller
                              ->select('u.*','ps.date_of_birth','rb.gotram','rb.maternal_gotram','rb.city_of_birth','rb.rashi','c.community','r.religion')
                              /*->where('ps.height','<=',$get_user_info->height)
                              ->where('rb.community_id',$get_user_info->community_id)
-			     ->where('rb.religion_id',$get_user_info->religion_id)*/
-		            ->where('u.id',$value->id)
+                             ->where('rb.religion_id',$get_user_info->religion_id)*/
+                              ->where('u.id',$value->id)
                              ->first();
 
                 $user_id = $value->id;             
@@ -109,15 +108,15 @@ class RecommentedAndRecentController extends Controller
                 }             
 
                 array_push($recommended_profiles, $recommended);
-	    }
-	    if(count($recommended_profiles)>0)
-	    {
-	          return response()->json(['success'=>'true','message'=>'Recommented Profiles','recommended_profiles' =>$recommended_profiles,'main_pics'=>$main_path], 200);
-	    }
-	    else
-	    {
-	         return response()->json(['error'=>'false','message'=>'No Recommented Profiles','recommended_profiles' =>''], 449);
-	    }
+            }
+            if(count($recommended_profiles)>0)
+            {
+                return response()->json(['success'=>'true','message'=>'Recommented Profiles','recommended_profiles' =>$recommended_profiles,'main_pics'=>$main_path], 200);
+            }
+            else
+            {
+                return response()->json(['error'=>'false','message'=>'No Recommented Profiles','recommended_profiles' =>''], 449);
+            }
         }
     }
 
@@ -138,6 +137,10 @@ class RecommentedAndRecentController extends Controller
                              ->leftjoin('community as c','c.id','=','rb.community_id')
                              ->select('ps.height','rb.community_id','rb.religion_id')
                              ->first();
+
+
+            
         }
+
     }
 }

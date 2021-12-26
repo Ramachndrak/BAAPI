@@ -134,7 +134,7 @@ class UserController extends Controller
 
             $random = rand (00000,99999);
             $check_random = User::select('random_id')->where('random_id',$random)->first();
-            if(!empty($check_random)>0)
+            if(!empty($check_random))
             {
                 $random = rand (00000,99999);
                 $random_string = 'BAB'.$random;
@@ -586,8 +586,8 @@ class UserController extends Controller
                         ->leftjoin('community as c','c.id','=','rb.community_id')
                         ->leftjoin('sub_community as sc','sc.id','=','rb.sub_community_id')
                         ->leftjoin('mother_tongue as mt','mt.id','=','rb.mother_tongue_id')
-			->select('r.religion','mt.mother_tongue','c.community','sc.sub_community','rb.gotram','rb.maternal_gotram','rb.city_of_birth','rb.rashi')
-			->where('user_id',$user_id)
+                        ->select('r.religion','mt.mother_tongue','c.community','sc.sub_community','rb.gotram','rb.maternal_gotram','rb.city_of_birth','rb.rashi')
+                        ->where('user_id',$user_id)
                         ->first();
 
             return response()->json(['success' => 'true','message' => 'Religion Screen Info','religion' => $religion],200);
