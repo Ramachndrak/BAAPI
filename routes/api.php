@@ -39,6 +39,10 @@ Route::post('login','Api\UserController@Login');
 	Route::post('previous_data','Api\UserController@PreviousData');
 	Route::post('recommended_profiles','Api\RecommentedAndRecentController@RecommentedProfiles');
 	Route::post('new_joined_profiles','Api\RecommentedAndRecentController@NewJoinedProfiles');
+	Route::post('forgotpassword','Api\ProfileDetails@ForgotPwd');
+	Route::post('updatePwd','Api\ProfileDetails@UpdatePwd');
+	Route::get('privacy_policy/{filename}','Api\ProfileDetails@PrivacyPolicy');
+	Route::get('termscondition/{filename}','Api\ProfileDetails@Terms');
 	
 //});
 

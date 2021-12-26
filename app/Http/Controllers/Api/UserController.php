@@ -129,12 +129,12 @@ class UserController extends Controller
 
     	$validator = Validator::make(Input::all(), $this->rules,$this->messages);
         if ($validator->fails()) {
-            return Response::json(array('errors' => $validator->getMessageBag()->toArray()),449);
+            return Response::json(array('errors' => $validator->getMessageBag()->toArray()),200);
         } else { 
 
             $random = rand (00000,99999);
             $check_random = User::select('random_id')->where('random_id',$random)->first();
-            if(count($check_random)>0)
+            if(!empty($check_random)>0)
             {
                 $random = rand (00000,99999);
                 $random_string = 'BAB'.$random;
@@ -225,7 +225,7 @@ class UserController extends Controller
                          ->where('community_id',$community_id)
                          ->get();
 
-        if(count($sub_community)>0)
+        if(!empty($sub_community)>0)
         {
             return response()->json(['success'=>'true','message'=>'Sub Community','SubCommunity' => $sub_community], 200);
         }
@@ -256,7 +256,7 @@ class UserController extends Controller
 
             $user_id = $request->user_id;
             $ProfileScreen_check = ProfileScreen::where('user_id',$user_id)->first();
-            if(count($ProfileScreen_check)>0)
+            if(!empty($ProfileScreen_check)>0)
             {
                 $ProfileScreen_check->profiles_created_by_id  = $request->profiles_created_by_id;
                 $ProfileScreen_check->date_of_birth           = $request->date_of_birth;
@@ -314,7 +314,7 @@ class UserController extends Controller
             $user_id =  $request->user_id;
 
             $ReligionBackground_check = ReligionBackground::where('user_id',$user_id)->first();
-            if(count($ReligionBackground_check)>0)
+            if(!empty($ReligionBackground_check)>0)
             {
                 $ReligionBackground_check->religion_id      = $request->religion_id;
                 $ReligionBackground_check->community_id     = $request->community_id;
@@ -364,7 +364,7 @@ class UserController extends Controller
             $user_id = $request->user_id;
             $EducationDetails_check = EducationDetails::where('user_id',$user_id)->first();
 
-            if(count($EducationDetails_check)>0)
+            if(!empty($EducationDetails_check)>0)
             {
                 $EducationDetails_check->highest_qualification = $request->highest_qualification;
                 $EducationDetails_check->college_attend = $request->college_attend;
@@ -410,7 +410,7 @@ class UserController extends Controller
         } else {
             $user_id = $request->user_id;
             $FamilyDetails_check = FamilyDetails::where('user_id',$user_id)->first();
-            if(count($FamilyDetails_check)>0)
+            if(!empty($FamilyDetails_check)>0)
             {
                 $FamilyDetails_check->father_name = $request->father_name;
                 $FamilyDetails_check->father_profession = $request->father_profession;
@@ -479,14 +479,14 @@ class UserController extends Controller
 
     public function ProfilePic(Request $request)
     {
-        $croppie_images = $request->image;
+	$croppie_images = $request->image;
         $user_id  = $request->user_id;
         foreach ($croppie_images as $key => $croppie_code) 
-        {
+	{
             if($key == 0)
-            {
+	    {
                 if (preg_match('/^data:image\/(\w+);base64,/', $croppie_code, $type)) 
-                {
+		{
                     $encoded_base64_image = substr($croppie_code, strpos($croppie_code, ',') + 1);
                     $type = strtolower($type[$key]);
                     $decoded_image = base64_decode($encoded_base64_image);
@@ -522,7 +522,7 @@ class UserController extends Controller
 
        User::select('flag')
       ->where('id',$user_id)
-      ->update(['flag' => 5]);
+      ->update(['flag' => 0]);
 
         return response()->json(['success'=>'true','message'=>'Profile Pics','thumbnail' =>$thumbnails_path,'main_pics'=>$main_path], 200);
     }
@@ -586,7 +586,8 @@ class UserController extends Controller
                         ->leftjoin('community as c','c.id','=','rb.community_id')
                         ->leftjoin('sub_community as sc','sc.id','=','rb.sub_community_id')
                         ->leftjoin('mother_tongue as mt','mt.id','=','rb.mother_tongue_id')
-                        ->select('r.religion','mt.mother_tongue','c.community','sc.sub_community','rb.gotram','rb.maternal_gotram','rb.city_of_birth','rb.rashi')
+			->select('r.religion','mt.mother_tongue','c.community','sc.sub_community','rb.gotram','rb.maternal_gotram','rb.city_of_birth','rb.rashi')
+			->where('user_id',$user_id)
                         ->first();
 
             return response()->json(['success' => 'true','message' => 'Religion Screen Info','religion' => $religion],200);
