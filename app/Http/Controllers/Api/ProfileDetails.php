@@ -74,8 +74,13 @@ class ProfileDetails extends Controller
 
     public function PrivacyPolicy()
     {
-        $path = URL::to('/public/pdf/privacy_policy.pdf');
-        return $path;
+        $filename = 'privacy_policy.pdf';
+        $path = storage_path($filename);
+
+        return Response::make(file_get_contents($path), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="'.$filename.'"'
+        ]);
     }
 }
  
