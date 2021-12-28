@@ -47,6 +47,7 @@ Route::post('login','Api\UserController@Login');
 	Route::post('forgotpassword','Api\ProfileDetails@ForgotPwd');
 	Route::post('updatePwd','Api\ProfileDetails@UpdatePwd');
 	Route::get('privacy_policy','Api\ProfileDetails@PrivacyPolicy');
+	Route::get('terms','Api\ProfileDetails@Terms');
 //});
 
 

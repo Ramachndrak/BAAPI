@@ -72,9 +72,22 @@ class ProfileDetails extends Controller
         }
     }
 
-    public function PrivacyPolicy()
+    public function PrivacyPolicy($filename)
     {
-        $filename = 'privacy_policy.pdf';
+	    dd($filename);
+	    $main_name = '/pdf/privacy_policy.pdf';
+	    $path = storage_path($main_name);
+	    
+
+	            return Response::make(file_get_contents($path), 200, [
+			                'Content-Type' => 'application/pdf',
+					            'Content-Disposition' => 'inline; filename="'.$filename.'"'
+						            ]);
+    }
+
+    public function Terms()
+    {
+        $filename = 'termscondition.pdf';
         $path = storage_path($filename);
 
         return Response::make(file_get_contents($path), 200, [
