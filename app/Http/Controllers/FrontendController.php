@@ -8,6 +8,6 @@ class FrontendController extends Controller
 {
     public function PrivacyPolicy()
     {
-        
+        return view('Frontend.privacy_policy');
     }
 }
