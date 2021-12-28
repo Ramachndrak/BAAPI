@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 
 class FrontendController extends Controller
 {
-	public function Privacy()
-	{
-		return view('frontend.privacy');
-	}
+    public function PrivacyPolicy()
+    {
+        
+    }
 }
