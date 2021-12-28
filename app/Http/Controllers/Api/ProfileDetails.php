@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Validator;
 use App\User;
-use URL;
+use Response;
+use URL,Storage;
 
 class ProfileDetails extends Controller
 {
@@ -46,7 +47,6 @@ class ProfileDetails extends Controller
             {
                 return response()->json(['error'=>'false','message'=>'User Not Exists'], 200);
             }
-            
         }
     }
 
@@ -72,15 +72,15 @@ class ProfileDetails extends Controller
         }
     }
 
-    public function PrivacyPolicy()
+    public function PrivacyPolicy($filename)
     {
         $filename = '/pdf/privacy_policy.pdf';
         $path = storage_path($filename);
 
-        return Response::make(file_get_contents($path), 200, [
-            'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'inline; filename="'.$filename.'"'
-        ]);
+	            return Response::make(file_get_contents($path), 200, [
+			                'Content-Type' => 'application/pdf',
+					            'Content-Disposition' => 'inline; filename="'.$filename.'"'
+						            ]);
     }
 
     public function Terms()

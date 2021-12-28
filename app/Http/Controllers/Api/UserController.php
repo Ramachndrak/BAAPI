@@ -479,14 +479,14 @@ class UserController extends Controller
 
     public function ProfilePic(Request $request)
     {
-        $croppie_images = $request->image;
+	$croppie_images = $request->image;
         $user_id  = $request->user_id;
         foreach ($croppie_images as $key => $croppie_code) 
-        {
+	{
             if($key == 0)
-            {
+	    {
                 if (preg_match('/^data:image\/(\w+);base64,/', $croppie_code, $type)) 
-                {
+		{
                     $encoded_base64_image = substr($croppie_code, strpos($croppie_code, ',') + 1);
                     $type = strtolower($type[$key]);
                     $decoded_image = base64_decode($encoded_base64_image);
