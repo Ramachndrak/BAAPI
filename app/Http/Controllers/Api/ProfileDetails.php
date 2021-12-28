@@ -74,7 +74,7 @@ class ProfileDetails extends Controller
 
     public function PrivacyPolicy()
     {
-        $filename = 'privacy_policy.pdf';
+        $filename = '/pdf/privacy_policy.pdf';
         $path = storage_path($filename);
 
         return Response::make(file_get_contents($path), 200, [
@@ -85,7 +85,7 @@ class ProfileDetails extends Controller
 
     public function Terms()
     {
-        $filename = 'termscondition.pdf';
+        $filename = '/pdf/termscondition.pdf';
         $path = storage_path($filename);
 
         return Response::make(file_get_contents($path), 200, [
