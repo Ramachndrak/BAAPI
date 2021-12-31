@@ -80,6 +80,123 @@ your online activities to improve your use of our Service, but such usage
 is consistent with the provisions of this Privacy Policy.</p>
 
 <h3>Information we collect from other sources</h3>
+<p>We may also obtain information from other sources and combine that
+with information we collect through the Service. For example, we may
+collect information about you from other users, identity verification
+services, credit bureaus, mailing list providers and publicly available
+sources.</p>
+<h3>Data transmission, storage and security</h3>
+<p>bandhaluanubhandalu.com uses industry best practices to keep any
+information collected and/or transmitted to the
+bandhaluanubhandalu.com network or Third-Party Apps secure. This
+includes the use of HTTP with TLS (Transport Layer Security), which
+encrypts all transmitted data.</p>
+<p>We use 64-bit SSL encryption when collecting and transmitting your
+information through the App and the bandhaluanubhandalu.com network
+(collectively, the “System.”). Once information has been collected, we
+encrypt sensitive data (i.e., PII) in our database for added security.
+bandhaluanubhandalu.com also uses firewalls and hardware monitoring
+across our System to protect against unauthorized access.
+Unfortunately, even with these measures, bandhaluanubhandalu.com
+cannot guarantee the security of PII. By using the Service, you
+acknowledge and agree that bandhaluanubhandalu.com makes no such
+guarantee, and that you use the Service at your own risk.</p>
+<p>In addition, bandhaluanubhandalu.com uses third-party vendors and
+hosting partners such as Amazon to provide the necessary hardware,
+software, networking, storage, and related technology required to run the
+Services. These vendors have been selected for their high standards of
+both physical and technological security, including ISO and SSAE16
+certifications.</p>
+
+<h3>Use of cookies</h3>
+<p>bandhaluanubhandalu.com uses cookies to help create a better user
+experience. A cookie is a small text file that is sent to your browser from
+a web server and may be stored on your computer’s hard drive.
+bandhaluanubhandalu.com uses cookies to better customize your
+experience on the App based on User attributes like your location and
+account preferences. No personally identifiable information is stored in
+our cookies. While you may elect to disable or delete cookies from your
+browser at any time, please note that this action may limit your use of
+bandhaluanubhandalu.com services that require cookies. You can
+control advertising cookies from Google, by using its Ads Preference
+Manager. Please note that to the extent advertising technology is
+integrated into the App, you may still receive advertisements even if you
+opt-out of tailored advertising.</p>
+
+<h3>Use of Personally Identifiable Information</h3>
+<p>bandhaluanubhandalu.com may use PII or other personal information
+you specifically give to us:</p>
+<ul>
+	<li>to provide services to you through the System</li>
+	<li>to process transactions and billing</li>
+	<li>for identification and authentication purposes</li>
+	<li>to communicate with you concerning the System, transactions,
+security, privacy and administrative issues relating to your use of
+the System</li>
+<li>to improve your response to and interaction with the System</li>
+<li>process and deliver contest and sweepstakes entries and rewards and
+verify eligibility</li>
+
+<li>to do something you have asked us to do, or tell you of services that
+we think may be of interest to you</li>
+<li>personalize and improve the Service and deliver and display targeted
+advertisements on our Service, content or features in the Service
+and on other apps</li>
+<li>to provide third party tutor-matching services an opportunity to provide
+you with information about tutors</li>
+<li>for administration of and troubleshooting regarding the System.
+Certain third parties who provide technical support for the operation of
+the System may need access to such information from time to time but
+are not permitted to disclose such information to others.
+bandhaluanubhandalu.com shares a minimum amount of information
+between tutors and students in order to facilitate the arrangement of
+tutoring sessions. We reserve the right to release non-personally
+identifiable information collected in aggregate, however.</li>
+	</ul>
+
+	<h3>Age Restrictions</h3>
+<p>The Website will not create matches for anyone not
+within the legally marriageable age. Any information received by the
+Website from a person the Website believes to be a minor will be purged
+from its database.</p>
+<h3>Your choices</h3>
+<p>Please remember to help keep the App secure by never sharing your
+username or password. If you think your password may have been
+compromised, please change it immediately or contact
+bandhaluanubhandalu.com for additional assistance.</p>
+
+<p>bandhaluanubhandalu.com may send you email communications
+periodically detailing new features or promotions on the App. You may
+unsubscribe from these messages by using the link at the bottom of the
+email. We may also send you email messages about the status of your
+account or any notices as required by law. You may not opt-out of
+receiving these administrative emails so long as you continue to use this
+voluntary service. If you wish to terminate your account, please contact
+us at bandhaluanubandhalu2021@gmail.com.</p>
+
+<h3>Privacy policy changes</h3>
+
+<p>bandhaluanubhandalu.com reserves the right to change this Privacy
+Policy, from time to time, due to modifications to the App’s features and
+functionality. We will post any changes here and indicate the new
+effective date of the Privacy Policy at the top of the document. We
+encourage you to review the Privacy Policy for any updates while you
+are an active User of the App.</p>
+
+<h3>Governing Law and Jurisdiction</h3>
+<p>These Policy shall be construed in accord with the applicable laws of
+India. You and we agree to submit any dispute arising under this Policy
+to the personal jurisdiction of a court located in Hyderabad for any
+actions for which the parties retain the right to seek injunctive or other
+equitable relief in a court of competent jurisdiction to prevent the actual
+or threatened infringement, misappropriation or violation of a party's
+copyrights, trademarks, trade secrets, patents, other intellectual property
+rights, or any provision of this policy.</p>
+<h3>Contact information</h3>
+
+<p>Questions regarding this Privacy Policy should be directed
+to bandhaluanubandhalu2021@gmail.com.</p>
+
 			</div>
 		</div>
 	</div>
