@@ -57,7 +57,7 @@ class RecommentedAndRecentController extends Controller
                 }             
 
     			array_push($recommended_profiles, $recommended);
-
+            }
             if(count($recommended_profiles)>0)
             {
                 return response()->json(['success'=>'true','message'=>'Recommented Profiles','recommended_profiles' =>$recommended_profiles,'main_pics'=>$main_path], 200);
@@ -66,7 +66,6 @@ class RecommentedAndRecentController extends Controller
             {
                 return response()->json(['error'=>'false','message'=>'No Recommented Profiles','recommended_profiles' =>''], 449);
             }
-
     	}
         else
         {
@@ -120,7 +119,7 @@ class RecommentedAndRecentController extends Controller
         }
     }
 
-    /*public function NewJoinedProfiles(Request $request)
+    public function NewJoinedProfiles(Request $request)
     {
         $user_id = $request->user_id;
 
@@ -142,5 +141,5 @@ class RecommentedAndRecentController extends Controller
             
         }
 
-    }*/
+    }
 }
